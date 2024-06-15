@@ -3,8 +3,8 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import configConstant from './constant/config.constant';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { APP_PORT, NODE_ENV } from './constant/config.constant';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,7 +14,7 @@ async function bootstrap() {
   app.enableShutdownHooks();
 
   // Overide nest default logger in production mode
-  if (config.get(configConstant.NODE_ENV) === 'production') {
+  if (config.get(NODE_ENV) === 'production') {
     app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   }
 
@@ -27,9 +27,9 @@ async function bootstrap() {
   const swaggerDoc = SwaggerModule.createDocument(app, swaggerCfg);
   SwaggerModule.setup('/api', app, swaggerDoc);
 
-  await app.listen(config.get(configConstant.APP_PORT)).then(() => {
+  await app.listen(config.get(APP_PORT)).then(() => {
     Logger.log(
-      `[NestApplication] Nest application running on port ${config.get(configConstant.APP_PORT)}`,
+      `[NestApplication] Nest application running on port ${config.get(APP_PORT)}`,
     );
   });
 }
