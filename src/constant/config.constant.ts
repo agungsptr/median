@@ -1,0 +1,10 @@
+export default {
+  APP_PORT: 'APP_PORT',
+  PG_USER: 'PG_USER',
+  PG_PASS: 'PG_PASS',
+  PG_PORT: 'PG_PORT',
+  PG_HOST: 'PG_HOST',
+  PG_DBNAME: 'PG_DBNAME',
+  DATABASE_URL: 'DATABASE_URL',
+  NODE_ENV: 'NODE_ENV',
+};
