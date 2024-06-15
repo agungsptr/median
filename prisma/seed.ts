@@ -20,17 +20,7 @@ async function main() {
     },
   ];
 
-  for (const i in data) {
-    await prisma.article
-      .upsert({
-        where: { title: data[i].title },
-        update: {},
-        create: data[i],
-      })
-      .then((post) => {
-        console.log(post);
-      });
-  }
+  await prisma.article.createMany({ data, skipDuplicates: true });
 }
 
 main()

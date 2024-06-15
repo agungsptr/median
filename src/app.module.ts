@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import { ConfigModule } from '@nestjs/config';
+import { ArticlesModule } from './articles/articles.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ConfigModule } from '@nestjs/config';
       ],
     }),
     PrismaModule,
+    ArticlesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

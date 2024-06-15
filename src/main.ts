@@ -25,7 +25,7 @@ async function bootstrap() {
     .setVersion('0.1')
     .build();
   const swaggerDoc = SwaggerModule.createDocument(app, swaggerCfg);
-  SwaggerModule.setup('/api', app, swaggerDoc);
+  SwaggerModule.setup('api', app, swaggerDoc);
 
   await app.listen(config.get(APP_PORT)).then(() => {
     Logger.log(
