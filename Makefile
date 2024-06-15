@@ -1,3 +1,6 @@
+# Load environment variables from .env
+include .env
+
 TAG := $(shell git tag --sort=creatordate | tail -1)
 IMAGE := agungsptr/median
 COMPOSE := docker-compose -f docker-compose.yml
@@ -9,7 +12,7 @@ build:
 	docker build -t $(IMAGE):$(TAG) .
 
 compose-up:
-	@echo "Starting services..."
+	@echo "🚢 Starting services..."
 	@TAG=$(TAG) $(COMPOSE) down -v || true
 	@TAG=$(TAG) $(COMPOSE) up -d --force-recreate
 
@@ -21,20 +24,20 @@ purge:
 	@docker image rm $(IMAGE):$(TAG) || true
 
 infra:
-	@echo "Starting DB service..."
+	@echo "🚢 Starting DB service..."
 	@TAG=$(TAG) $(COMPOSE) down -v || true
 	@TAG=$(TAG) $(COMPOSE) up -d --force-recreate db-postgres
 	@sleep 1
 	@make -s wait-db
 
 wait-db:
-	@echo "Checking database is ready..."
+	@echo "\n🤌  Checking database is ready..."
 	@scripts/wait-for-it.sh 0.0.0.0:$(PG_PORT)
-	@echo "Database is ready"
+	@echo "👌 Database is ready!"
 
 wait-app:
-	@echo "Checking app  ready..."
+	@echo "\n🤌  Checking app  ready..."
 	@scripts/wait-for-it.sh 0.0.0.0:$(APP_PORT) 
-	@echo "App is ready"
+	@echo "👌 App is ready!"
 
 .PHONY: build test
