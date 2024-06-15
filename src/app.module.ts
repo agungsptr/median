@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -6,6 +11,7 @@ import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import { ConfigModule } from '@nestjs/config';
 import { ArticlesModule } from './articles/articles.module';
+import { LogMiddleware } from './log/log.middleware';
 
 @Module({
   imports: [
@@ -24,4 +30,12 @@ import { ArticlesModule } from './articles/articles.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // Applies middleware
+    consumer.apply(LogMiddleware).forRoutes({
+      path: 'api/*',
+      method: RequestMethod.ALL,
+    });
+  }
+}

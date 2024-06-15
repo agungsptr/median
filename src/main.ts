@@ -4,7 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { APP_PORT, NODE_ENV } from './constant/config.constant';
+import { APP_PORT, APP_VER, NODE_ENV } from './constant/config.constant';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -27,10 +27,14 @@ async function bootstrap() {
   const swaggerDoc = SwaggerModule.createDocument(app, swaggerCfg);
   SwaggerModule.setup('api', app, swaggerDoc);
 
+  // Set route global prefix
+  app.setGlobalPrefix(`api/${config.get(APP_VER)}`);
+
   await app.listen(config.get(APP_PORT)).then(() => {
     Logger.log(
-      `[NestApplication] Nest application running on port ${config.get(APP_PORT)}`,
+      `[NestApplication] App running on port: ${config.get(APP_PORT)} with version: ${config.get(APP_VER)}`,
     );
   });
 }
+
 bootstrap();
