@@ -12,3 +12,7 @@ Why I want to try change the indec algorithm in `id` column it because the defau
 `BTree` algorithm in Postgres work simply compare the new data with existing data and create structure like balance tree. So when we try to search value in column that using this algo to indexing, we don't need to compare the data to entire data and it make more faster. You can see this algorithm more detail with beautifull diagram in this link [BTree Diagram](https://www.cs.usfca.edu/~galles/visualization/BTree.html).
 
 In this contex, when I use UUID in `id` column, I dont need searching that column to compre data like literly `1 > 2,3,4...etc` if using `BTree`. I need to exactly find that value match with pareameter I give, so it more like `hjasd = <any id>`. Because that I consider to use `Hash` instead of `BTree` to indexing the `id` column.
+
+## NestJS
+### Middleware Won't Work When Using Global Prefix
+This issue appear when we use global prefix in main.ts, event we set the prefix exacly same with path in middleware, the middleware wont work.
