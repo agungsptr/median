@@ -13,9 +13,10 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ArticleEntity } from './entities/article.entity';
+import { PathPrefix } from 'src/constant/common.constant';
 
 @ApiTags('articles')
-@Controller('articles')
+@Controller(`${PathPrefix}/articles`)
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
 

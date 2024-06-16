@@ -5,6 +5,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { APP_PORT, APP_VER, NODE_ENV } from './constant/config.constant';
+import { PathPrefix } from './constant/common.constant';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,10 +19,6 @@ async function bootstrap() {
     app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   }
 
-  // Set route global prefix
-  const prefix = `api/${config.get(APP_VER)}`;
-  app.setGlobalPrefix(prefix);
-
   // Enable swagger
   const swaggerCfg = new DocumentBuilder()
     .setTitle('Median')
@@ -29,7 +26,7 @@ async function bootstrap() {
     .setVersion('0.1')
     .build();
   const swaggerDoc = SwaggerModule.createDocument(app, swaggerCfg);
-  SwaggerModule.setup(prefix, app, swaggerDoc);
+  SwaggerModule.setup(PathPrefix, app, swaggerDoc);
 
   // Ser validation pipe
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));

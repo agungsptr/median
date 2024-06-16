@@ -1,5 +1,5 @@
 # Load environment variables from .env
-include .env
+# include .env
 
 TAG := $(shell git tag --sort=creatordate | tail -1)
 IMAGE := agungsptr/median
@@ -31,7 +31,7 @@ infra:
 	@make -s wait-db
 	@echo "\n🚀 Migrating database..."
 	@bun prisma migrate dev
-	@echo "🪣 Seeding database..."
+	@echo "🪣  Seeding database..."
 	@bun prisma db seed
 
 wait-db:
