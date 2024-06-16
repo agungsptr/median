@@ -29,6 +29,10 @@ infra:
 	@TAG=$(TAG) $(COMPOSE) up -d --force-recreate db-postgres
 	@sleep 1
 	@make -s wait-db
+	@echo "\n🚀 Migrating database..."
+	@bun prisma migrate dev
+	@echo "🪣 Seeding database..."
+	@bun prisma db seed
 
 wait-db:
 	@echo "\n🤌  Checking database is ready..."
