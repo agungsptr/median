@@ -1,5 +1,5 @@
 # My Note
-This note that explaine or something that can improve the project performance in any aspect as I know haha...:D. Or I just want to put any random note about this projetc for my personal learn experience.
+This note that explaine or something that can improve the project performance in any aspect as I know haha... :D. Or I just want to put any random note about this projetc for my personal learn experience.
 
 ## Database
 ### Try change Index Algorithm
