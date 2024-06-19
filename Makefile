@@ -1,5 +1,5 @@
 # Load environment variables from .env
-# include .env
+include .env
 
 TAG := $(shell git tag --sort=creatordate | tail -1)
 IMAGE := agungsptr/median
