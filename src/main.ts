@@ -28,7 +28,7 @@ async function bootstrap() {
   const swaggerDoc = SwaggerModule.createDocument(app, swaggerCfg);
   SwaggerModule.setup(PathPrefix, app, swaggerDoc);
 
-  // Ser validation pipe
+  // Set validation pipe
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   await app.listen(config.get(APP_PORT)).then(() => {

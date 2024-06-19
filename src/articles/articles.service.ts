@@ -20,7 +20,7 @@ export class ArticlesService {
   }
 
   async findOne(id: string) {
-    return this.prismaService.article.findUnique({ where: { id } });
+    return this.prismaService.article.findUniqueOrThrow({ where: { id } });
   }
 
   async update(id: string, updateArticleDto: UpdateArticleDto) {
