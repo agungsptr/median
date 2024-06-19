@@ -13,6 +13,39 @@ Why I want to try change the indec algorithm in `id` column it because the defau
 
 In this contex, when I use UUID in `id` column, I dont need searching that column to compre data like literly `1 > 2,3,4...etc` if using `BTree`. I need to exactly find that value match with pareameter I give, so it more like `hjasd = <any id>`. Because that I consider to use `Hash` instead of `BTree` to indexing the `id` column.
 
+
 ## NestJS
 ### Middleware Won't Work When Using Global Prefix
 This issue appear when we use global prefix in main.ts, event we set the prefix exacly same with path in middleware, the middleware wont work.
+
+
+## PrismaJs
+### Example Create Filter to Handle Error by Prisma
+You can place this code in `prisma.filter.ts`. This example I learn from [Building a REST API with NestJS and Prisma: Error Handling](https://www.prisma.io/blog/nestjs-prisma-error-handling-7D056s1kOop2).
+
+```ts
+@Catch(PrismaClientKnownRequestError)
+export class PrismaFilter extends BaseExceptionFilter {
+  catch(exception: PrismaClientKnownRequestError, host: ArgumentsHost) {
+    console.error(exception.message);
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const message = exception.message.replace(/\n/g, '');
+
+    switch (exception.code) {
+      case 'P2002': {
+        const status = HttpStatus.CONFLICT;
+        response.status(status).json({
+          statusCode: status,
+          message: message,
+        });
+        break;
+      }
+      default:
+        // default 500 error code
+        super.catch(exception, host);
+        break;
+    }
+  }
+}
+```

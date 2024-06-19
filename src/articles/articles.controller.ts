@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  UseFilters,
 } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -14,9 +15,11 @@ import { UpdateArticleDto } from './dto/update-article.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ArticleEntity } from './entities/article.entity';
 import { PathPrefix } from 'src/constant/common.constant';
+import { PrismaFilter } from 'src/prisma/prisma.filter';
 
-@ApiTags('articles')
 @Controller(`${PathPrefix}/articles`)
+@ApiTags('articles')
+@UseFilters(PrismaFilter)
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
 
