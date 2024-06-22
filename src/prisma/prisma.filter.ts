@@ -16,12 +16,16 @@ export class PrismaFilter
     const res = http.getResponse<Response>();
 
     let statusCode: HttpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-    if (exception.code === 'P2002') {
-      statusCode = HttpStatus.CONFLICT;
-    } else if (exception.code === 'P2025') {
-      statusCode = HttpStatus.BAD_REQUEST;
-    } else {
-      console.error(exception);
+    switch (exception.code) {
+      case 'P2002':
+        statusCode = HttpStatus.CONFLICT;
+        break;
+      case 'P2025':
+        statusCode = HttpStatus.BAD_REQUEST;
+        break;
+      default:
+        console.error(exception);
+        break;
     }
 
     res.status(statusCode).json({

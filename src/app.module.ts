@@ -12,6 +12,7 @@ import * as winston from 'winston';
 import { ConfigModule } from '@nestjs/config';
 import { ArticlesModule } from './articles/articles.module';
 import { LogMiddleware } from './log/log.middleware';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { LogMiddleware } from './log/log.middleware';
     }),
     PrismaModule,
     ArticlesModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
