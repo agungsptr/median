@@ -5,7 +5,7 @@ This note explains something that can improve the project performance in any asp
 ### Try change Index Algorithm
 First of all, actually I have been reading Prisma documentation about indexing in databases, but I found that we can't just simply put that configuration in `schema.prisma` so to change the index algorithm we need to touch the database itself.
 
-I have been tried using `@@index([id], name: "id_hash_idx", type: Hash)` in `schema.prisma`, and what I get is Prisma just create new index with what i spesify before and not applied to `id` column.
+I have been tried using `@@index([id], name: "id_hash_idx", type: Hash)` in `schema.prisma`, and what I get is Prisma just create new index with what I spesify before and not applied to `id` column.
 
 I want to try to change the index algorithm in the `id` column because the default value for that column is `UUIDv4`. This UUID is a random string which doesn't have any ordering stuff, so if I just stand with the default Postgres indexing algorithm `BTree` it can cause more expensive computations to index the data when inserting new data compared to `Hash` algorithm.
 
