@@ -49,3 +49,52 @@ export class PrismaFilter extends BaseExceptionFilter {
   }
 }
 ```
+
+### Back to Manual Config
+I decided to use manual config not from NestJs becouse of Nest config pattern. I mena when we need to call ConfigModule buildin NestJs it only can call inside module, so if you need to get config and pass it outside class of nest module you can't do that. This make calling config not practice to me and a bit complicated to me.
+
+This how to use NestJs buildin config, just note how to use it cuz I want remove it, incase i want to use it againg in other prject.
+
+1. Install the module
+    ```sh
+    bun i @nestjs/config
+    ```
+
+2. Apply in `app.module.ts`
+    ```ts
+    @Module({
+      imports: [
+        ConfigModule.forRoot({ isGlobal: true, cache: true }),
+        ...
+      ],
+    })
+    ...
+    ```
+
+3. Use config in `main.ts`
+    ```ts
+    const config = app.get(ConfigService);
+    const appPort = config.get(APP_PORT);
+    ```
+
+4. Use config in controller `*.controller.ts`
+    ```ts
+    export class UsersController {
+      constructor(private readonly config: ConfigService) {}
+
+      @Get()
+      async findAll() {
+        const appVer = config.get<string>('APP_VER');
+        ...
+      }
+      ...
+    ```
+    Note: Becuse we import `ConfigModule` as global in `app.module.ts` we dont neet to import it in other module, just inject it as constructor.
+
+
+## Authenctication
+### Generate Secret Ket from OpenSSL
+To generate secret key from OpenSSL it simply run this command
+```sh
+openssl rand -base64 32
+```

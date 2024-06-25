@@ -15,9 +15,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { UserEntity } from './entities/user.entity';
+import { config } from 'src/config/config';
 
-@Controller('users')
-@ApiTags('User')
+@Controller(`${config.API_PREFIX}/users`)
+@ApiTags('Users')
 @UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

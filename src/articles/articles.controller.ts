@@ -14,11 +14,11 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ArticleEntity } from './entities/article.entity';
-import { PathPrefix } from 'src/constant/common.constant';
 import { PrismaFilter } from 'src/prisma/prisma.filter';
+import { config } from 'src/config/config';
 
-@Controller(`${PathPrefix}/articles`)
-@ApiTags('articles')
+@Controller(`${config.API_PREFIX}/articles`)
+@ApiTags('Articles')
 @UseFilters(PrismaFilter)
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}

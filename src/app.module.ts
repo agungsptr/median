@@ -9,14 +9,12 @@ import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
-import { ConfigModule } from '@nestjs/config';
 import { ArticlesModule } from './articles/articles.module';
 import { LogMiddleware } from './log/log.middleware';
 import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
     WinstonModule.forRoot({
       format: winston.format.json(),
       level: 'info',
