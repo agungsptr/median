@@ -15,6 +15,12 @@ In this context, when I use UUID in the `id` column, I don't need to search that
 
 
 ## NestJS
+### Using Bun as Runtime of Nest
+When you use some of `Bun` native method, like `Bun.password` etc. You need to configure nest runner to add parameter `--watch \"bun run\"`. Full command like this bellow.
+```sh
+"start:dev": "nest start --watch --exec \"bun run\""
+```
+
 ### Middleware Won't Work When Using Global Prefix
 This issue appears when we use global prefix in main.ts, even if we set the prefix exactly the same with path in middleware, the middleware wont work.
 
@@ -98,3 +104,33 @@ To generate secret key from OpenSSL it simply run this command
 ```sh
 openssl rand -base64 32
 ```
+
+
+## Prisma
+### Setup Prisma
+1. Add prisma dependency
+   ```sh
+   bun add -d prisma
+   ```
+2. Prisma init
+   ```sh
+   bunx prisma init
+   ```
+3. Migrate schema
+   ```sh
+   bunx prisma migrate dev --name "init"
+   ```
+4. Seed
+   Make sure you have add this code to `package.json`
+   ```json
+   "prisma": {
+     "seed": "bun prisma/seed.ts"
+   }
+   ```
+   And then you can seed using
+   ```sh
+   bun prisma db seed
+   ```
+
+## Storing Hashed Password in Seeder
+Why I do this instead of write plain password and hashing it in seeder is because when I use `Bun.password.hash` I need to run that seeder using `Bun` and I actually can run it but I don't really know why the data it not inputed to db, event the seeder is success run. Solution I do for now is using hashed password as string in seeder and run the seeder using `ts-node`.
