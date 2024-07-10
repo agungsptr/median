@@ -8,7 +8,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  @ApiOkResponse({ type: 'median/api/v1' })
+  @ApiOkResponse({ description: 'Median version: v1' })
   getHello(): string {
     return this.appService.getHello();
   }

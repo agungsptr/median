@@ -19,6 +19,7 @@ export class PrismaService
     this.$connect();
     Logger.log('[PrismaService] Connect prisma');
   }
+
   onModuleDestroy() {
     this.$disconnect();
     Logger.log('[PrismaService] Disconnect prisma');

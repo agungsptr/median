@@ -12,6 +12,7 @@ import * as winston from 'winston';
 import { ArticlesModule } from './articles/articles.module';
 import { LogMiddleware } from './log/log.middleware';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UsersModule } from './users/users.module';
     PrismaModule,
     ArticlesModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -9,7 +9,7 @@ async function main() {
     create: {
       email: 'agung.e.sptr@gmail.com',
       name: 'Agung Saputra',
-      password: 'secret',
+      password: '$2b$10$ZlaoBDcKkLlr/ErkiRC5QuquPvmnzhZNGDLk1mSaKoSDJ.K00olCm', // password: "secret" -> Generate using Bun.password.hash with alg: bcrypt and cost: 10
     },
   });
 
