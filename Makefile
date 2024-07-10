@@ -30,7 +30,7 @@ infra:
 	@sleep 1
 	@make -s wait-db
 	@echo "\n🚀 Migrating database..."
-	@bun prisma migrate dev
+	@bunx prisma migrate dev
 	@echo "🪣  Seeding database..."
 	@bun prisma db seed
 
