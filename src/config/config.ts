@@ -12,6 +12,7 @@ export const config = {
     SECRET: process.env.JWT_SECRET_KEY,
     EXPIRES: process.env.JWT_EXPIRES,
   },
+  BCRYPT_ROUND: parseInt(process.env.BCRYPT_ROUND) ?? 10,
   pg: {
     HOST: process.env.PG_HOST,
     PORT: process.env.PG_PORT,
